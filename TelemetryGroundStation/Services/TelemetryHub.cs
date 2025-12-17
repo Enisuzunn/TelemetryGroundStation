@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using TelemetryGroundStation.Models.TelemetryData;
-using TelemetryGroundStation.Services;
 namespace TelemetryGroundStation.Services
 {
     public class TelemetryHub
