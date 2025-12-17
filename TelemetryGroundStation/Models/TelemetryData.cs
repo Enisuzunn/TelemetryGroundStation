@@ -1,6 +1,7 @@
 using System;
 
-namespace TelemetryGroundStation.TelemetryData;
+namespace TelemetryGroundStation.Models.TelemetryData
+{
 public class TelemetryData
 {
     public DateTime TimeStamp { get; set; } //zaman
@@ -10,4 +11,5 @@ public class TelemetryData
 
     public double Longitude { get; set; } //boylam
     public double Latitude { get; set; } //enlem
+}
 }

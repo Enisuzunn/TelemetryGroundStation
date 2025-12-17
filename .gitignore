@@ -1,0 +1,16 @@
+# .NET
+bin/
+obj/
+
+# Avalonia
+*.dll
+*.exe
+*.pdb
+
+# VS / VS Code
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
