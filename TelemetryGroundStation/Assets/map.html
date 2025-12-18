@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telemetry Map</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        #map {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    
+    <script>
+        // Initialize map centered on Istanbul
+        var map = L.map('map').setView([41.0082, 28.9784], 13);
+        
+        // Add OpenStreetMap tile layer (no API key required)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19
+        }).addTo(map);
+        
+        // Create a custom icon for the telemetry marker
+        var telemetryIcon = L.icon({
+            iconUrl: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj48Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSIxMCIgZmlsbD0iIzAwN2JmZiIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIzIi8+PHBhdGggZD0iTTE2IDZMMTYgMTBNMTYgMjJMMTYgMjZNMjYgMTZMMjIgMTZNMTAgMTZMNiAxNiIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+',
+            iconSize: [32, 32],
+            iconAnchor: [16, 16],
+            popupAnchor: [0, -16]
+        });
+        
+        // Initialize marker at default position
+        var marker = L.marker([41.0082, 28.9784], { icon: telemetryIcon }).addTo(map);
+        marker.bindPopup("<b>Telemetry Position</b><br>Waiting for data...").openPopup();
+        
+        // Flag to control auto-centering
+        var followMode = true;
+        
+        // Disable follow mode when user pans the map manually
+        map.on('dragstart', function() {
+            followMode = false;
+        });
+        
+        // Function called from C# to update marker position
+        function updatePosition(lat, lng) {
+            if (lat && lng && !isNaN(lat) && !isNaN(lng)) {
+                var newLatLng = L.latLng(lat, lng);
+                
+                // Update marker position with smooth animation
+                marker.setLatLng(newLatLng);
+                
+                // Update popup content
+                marker.setPopupContent(
+                    "<b>Telemetry Position</b><br>" +
+                    "Lat: " + lat.toFixed(6) + "<br>" +
+                    "Lng: " + lng.toFixed(6)
+                );
+                
+                // Auto-center map if follow mode is enabled
+                if (followMode) {
+                    map.panTo(newLatLng, {
+                        animate: true,
+                        duration: 0.5
+                    });
+                }
+            }
+        }
+        
+        // Function to enable/disable follow mode (can be called from C#)
+        function setFollowMode(enabled) {
+            followMode = enabled;
+            if (followMode) {
+                map.panTo(marker.getLatLng());
+            }
+        }
+        
+        // Function to reset view (can be called from C#)
+        function resetView() {
+            followMode = true;
+            map.setView(marker.getLatLng(), 13);
+        }
+        
+        // Log that map is ready
+        console.log('Leaflet map initialized and ready');
+    </script>
+</body>
+</html>

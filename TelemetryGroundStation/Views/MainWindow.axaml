@@ -4,7 +4,7 @@
         x:Class="TelemetryGroundStation.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Title="Telemetry Ground Station"
-        Width="520" Height="360">
+        Width="550" Height="450">
 
   <StackPanel Margin="20" Spacing="12">
 
@@ -13,24 +13,36 @@
                FontWeight="Bold"
                HorizontalAlignment="Center"/>
 
-    <StackPanel Orientation="Horizontal" Spacing="10">
+    <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
       <Button Content="Başlat" Command="{Binding StartCommand}" Width="120"/>
       <Button Content="Durdur"  Command="{Binding StopCommand}"  Width="120"/>
-      <TextBlock Text="{Binding StatusText}"
-                 FontWeight="SemiBold"
-                 VerticalAlignment="Center" Margin="10,0,0,0"/>
+      <Button x:Name="OpenMapButton" Content="🗺️ Haritayı Aç" Width="140" />
     </StackPanel>
+    
+    <TextBlock Text="{Binding StatusText}"
+               FontWeight="SemiBold"
+               HorizontalAlignment="Center"
+               Margin="0,5,0,0"/>
 
-    <Border Padding="12" CornerRadius="8" BorderThickness="1">
-      <StackPanel Spacing="8">
-        <TextBlock Text="{Binding Altitude, StringFormat=Altitude: {0:F2}}" />
-        <TextBlock Text="{Binding Speed, StringFormat=Speed: {0:F2}}" />
-        <TextBlock Text="{Binding Temperature, StringFormat=Temperature: {0:F2}}" />
-        <TextBlock Text="{Binding Longitude, StringFormat=Longitude: {0:F6}}" />
-        <TextBlock Text="{Binding Latitude, StringFormat=Latitude: {0:F6}}" />
-        <TextBlock Text="{Binding TimeStampText, StringFormat=Time: {0}}" />
+    <Border Padding="16" CornerRadius="8" BorderThickness="2" BorderBrush="#007bff" Margin="0,10,0,0">
+      <StackPanel Spacing="10">
+        <TextBlock Text="Telemetri Verileri" FontSize="16" FontWeight="Bold" Foreground="#007bff"/>
+        <Separator/>
+        <TextBlock Text="{Binding Altitude, StringFormat=Yükseklik: {0:F2} m}" FontSize="14" />
+        <TextBlock Text="{Binding Speed, StringFormat=Hız: {0:F2} m/s}" FontSize="14" />
+        <TextBlock Text="{Binding Temperature, StringFormat=Sıcaklık: {0:F2} °C}" FontSize="14" />
+        <TextBlock Text="{Binding Longitude, StringFormat=Boylam: {0:F6}}" FontSize="14" Foreground="#28a745" FontWeight="SemiBold" />
+        <TextBlock Text="{Binding Latitude, StringFormat=Enlem: {0:F6}}" FontSize="14" Foreground="#28a745" FontWeight="SemiBold" />
+        <TextBlock Text="{Binding TimeStampText, StringFormat=Zaman: {0}}" FontSize="14" Foreground="Gray" />
       </StackPanel>
     </Border>
+
+    <TextBlock Text="🔗 'Haritayı Aç' butonuna tıklayarak canlı konumu harita üzerinde görüntüleyebilirsiniz."
+               TextWrapping="Wrap"
+               Foreground="Gray"
+               FontSize="11"
+               HorizontalAlignment="Center"
+               Margin="0,10,0,0"/>
 
   </StackPanel>
 </Window>
