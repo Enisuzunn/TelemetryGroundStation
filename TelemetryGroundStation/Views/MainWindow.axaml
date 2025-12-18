@@ -1,20 +1,36 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:TelemetryGroundStation.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="TelemetryGroundStation.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="TelemetryGroundStation">
+        Title="Telemetry Ground Station"
+        Width="520" Height="360">
 
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
+  <StackPanel Margin="20" Spacing="12">
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <TextBlock Text="Telemetry Ground Station"
+               FontSize="20"
+               FontWeight="Bold"
+               HorizontalAlignment="Center"/>
 
+    <StackPanel Orientation="Horizontal" Spacing="10">
+      <Button Content="Başlat" Command="{Binding StartCommand}" Width="120"/>
+      <Button Content="Durdur"  Command="{Binding StopCommand}"  Width="120"/>
+      <TextBlock Text="{Binding StatusText}"
+                 FontWeight="SemiBold"
+                 VerticalAlignment="Center" Margin="10,0,0,0"/>
+    </StackPanel>
+
+    <Border Padding="12" CornerRadius="8" BorderThickness="1">
+      <StackPanel Spacing="8">
+        <TextBlock Text="{Binding Altitude, StringFormat=Altitude: {0:F2}}" />
+        <TextBlock Text="{Binding Speed, StringFormat=Speed: {0:F2}}" />
+        <TextBlock Text="{Binding Temperature, StringFormat=Temperature: {0:F2}}" />
+        <TextBlock Text="{Binding Longitude, StringFormat=Longitude: {0:F6}}" />
+        <TextBlock Text="{Binding Latitude, StringFormat=Latitude: {0:F6}}" />
+        <TextBlock Text="{Binding TimeStampText, StringFormat=Time: {0}}" />
+      </StackPanel>
+    </Border>
+
+  </StackPanel>
 </Window>

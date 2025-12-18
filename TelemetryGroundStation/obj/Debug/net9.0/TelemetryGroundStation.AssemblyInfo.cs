@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TelemetryGroundStation")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+60ecbbbd8309a1b2b97458c45bc7af12135a6760")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7de1c86dbf7468d917f63c80612032f94b7872ec")]
 [assembly: System.Reflection.AssemblyProductAttribute("TelemetryGroundStation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TelemetryGroundStation")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
